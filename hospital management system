@@ -1,0 +1,219 @@
+import java.util.*;
+
+public class HospitalManagementSystem {
+
+    // Patient class
+    static class Patient {
+        String id, name, contact, condition;
+
+        public Patient(String id, String name, String contact, String condition) {
+            this.id = id;
+            this.name = name;
+            this.contact = contact;
+            this.condition = condition;
+        }
+
+        @Override
+        public String toString() {
+            return "ID: " + id + ", Name: " + name + ", Contact: " + contact + ", Condition: " + condition;
+        }
+    }
+
+    // Appointment class
+    static class Appointment {
+        String appointmentId, patientId, doctorName, date, time;
+
+        public Appointment(String appointmentId, String patientId, String doctorName, String date, String time) {
+            this.appointmentId = appointmentId;
+            this.patientId = patientId;
+            this.doctorName = doctorName;
+            this.date = date;
+            this.time = time;
+        }
+
+        @Override
+        public String toString() {
+            return "Appointment ID: " + appointmentId + ", Patient ID: " + patientId + ", Doctor: " + doctorName + ", Date: " + date + ", Time: " + time;
+        }
+    }
+
+    // Inventory class
+    static class Inventory {
+        String itemName;
+        int quantity;
+
+        public Inventory(String itemName, int quantity) {
+            this.itemName = itemName;
+            this.quantity = quantity;
+        }
+
+        @Override
+        public String toString() {
+            return "Item: " + itemName + ", Quantity: " + quantity;
+        }
+    }
+
+    // Staff class
+    static class Staff {
+        String staffId, name, role;
+
+        public Staff(String staffId, String name, String role) {
+            this.staffId = staffId;
+            this.name = name;
+            this.role = role;
+        }
+
+        @Override
+        public String toString() {
+            return "Staff ID: " + staffId + ", Name: " + name + ", Role: " + role;
+        }
+    }
+
+    static List<Patient> patients = new ArrayList<>();
+    static List<Appointment> appointments = new ArrayList<>();
+    static List<Inventory> inventoryItems = new ArrayList<>();
+    static List<Staff> staffMembers = new ArrayList<>();
+
+    public static void main(String[]args) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("\n--- Hospital Management System ---");
+            System.out.println("1. Register Patient");
+            System.out.println("2. Schedule Appointment");
+            System.out.println("3. View Patients");
+            System.out.println("4. View Appointments");
+            System.out.println("5. Manage Inventory");
+            System.out.println("6. Manage Staff");
+            System.out.println("7. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    registerPatient(scanner);
+                    break;
+                case 2:
+                    scheduleAppointment(scanner);
+                    break;
+                case 3:
+                    viewPatients();
+                    break;
+                case 4:
+                    viewAppointments();
+                    break;
+                case 5:
+                    manageInventory(scanner);
+                    break;
+                case 6:
+                    manageStaff(scanner);
+                    break;
+                case 7:
+                    System.out.println("Exiting the system. Goodbye!");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    public static void registerPatient(Scanner scanner) {
+        System.out.print("Enter Patient ID: ");
+        String id = scanner.nextLine();
+        System.out.print("Enter Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Contact: ");
+        String contact = scanner.nextLine();
+        System.out.print("Enter Condition: ");
+        String condition = scanner.nextLine();
+
+        patients.add(new Patient(id, name, contact, condition));
+        System.out.println("Patient registered successfully.");
+    }
+
+    public static void scheduleAppointment(Scanner scanner) {
+        System.out.print("Enter Appointment ID: ");
+        String appointmentId = scanner.nextLine();
+        System.out.print("Enter Patient ID: ");
+        String patientId = scanner.nextLine();
+        System.out.print("Enter Doctor's Name: ");
+        String doctorName = scanner.nextLine();
+        System.out.print("Enter Date (YYYY-MM-DD): ");
+        String date = scanner.nextLine();
+        System.out.print("Enter Time (HH:MM): ");
+        String time = scanner.nextLine();
+
+        appointments.add(new Appointment(appointmentId, patientId, doctorName, date, time));
+        System.out.println("Appointment scheduled successfully.");
+    }
+
+    public static void viewPatients() {
+        System.out.println("\n--- Patient List ---");
+        for (Patient patient : patients) {
+            System.out.println(patient);
+        }
+    }
+
+    public static void viewAppointments() {
+        System.out.println("\n--- Appointment List ---");
+        for (Appointment appointment : appointments) {
+            System.out.println(appointment);
+        }
+    }
+
+    public static void manageInventory(Scanner scanner) {
+        System.out.println("\n--- Inventory Management ---");
+        System.out.println("1. Add Item");
+        System.out.println("2. View Items");
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        if (choice == 1) {
+            System.out.print("Enter Item Name: ");
+            String itemName = scanner.nextLine();
+            System.out.print("Enter Quantity: ");
+            int quantity = scanner.nextInt();
+            scanner.nextLine();
+
+            inventoryItems.add(new Inventory(itemName, quantity));
+            System.out.println("Item added to inventory.");
+        } else if (choice == 2) {
+            System.out.println("\n--- Inventory Items ---");
+            for (Inventory item : inventoryItems) {
+                System.out.println(item);
+            }
+        } else {
+            System.out.println("Invalid choice.");
+        }
+    }
+
+    public static void manageStaff(Scanner scanner) {
+        System.out.println("\n--- Staff Management ---");
+        System.out.println("1. Add Staff");
+        System.out.println("2. View Staff");
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        if (choice == 1) {
+            System.out.print("Enter Staff ID: ");
+            String staffId = scanner.nextLine();
+            System.out.print("Enter Name: ");
+            String name = scanner.nextLine();
+            System.out.print("Enter Role: ");
+            String role = scanner.nextLine();
+
+            staffMembers.add(new Staff(staffId, name, role));
+            System.out.println("Staff member added successfully.");
+        } else if (choice == 2) {
+            System.out.println("\n--- Staff Members ---");
+            for (Staff staff : staffMembers) {
+                System.out.println(staff);
+            }
+        } else {
+            System.out.println("Invalid choice.");
+        }
+    }
+}
