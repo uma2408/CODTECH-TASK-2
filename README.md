@@ -8,7 +8,7 @@
 
 **Duration:** DECEMBER-17-2024 TO JANUARY-17-2025
 
-**Mentor:** Sravani
+**Mentor:** N.SANTHOSH
 
 #**Overview of the Hospital Management System Program:**
 
